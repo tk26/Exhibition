@@ -126,7 +126,7 @@ $(document).ready(function(){
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
 			<ul class="dropdown-menu forAnimate" role="menu">
 				<li><a href="addUser.php">Add User</a></li>
-				<li class="active"><a href="manageUsers.php">Manage Users</a></li>
+				<li><a href="manageUsers.php">Manage Users</a></li>
       <!-- 
             <li class="divider"></li>
             <li><a href="#"></a></li>
@@ -138,7 +138,7 @@ $(document).ready(function(){
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Companies<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a>
 			<ul class="dropdown-menu forAnimate" role="menu">
 				<li><a href="addCompany.php">Add Company</a></li>
-				<li><a href="manageCompanies.php">Manage Companies</a></li>
+				<li class="active"><a href="manageCompanies.php">Manage Companies</a></li>
       
             
 			</ul>

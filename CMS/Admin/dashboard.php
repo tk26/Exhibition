@@ -18,7 +18,7 @@
 
    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
-    <title>Manage Users</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -64,7 +64,7 @@ $(document).ready(function(){
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-			<li><a href='index.php'><img src="images/logo.jpg"></a></li>
+			<a href='index.php'></a>
       </button>
       
     </div>
@@ -121,12 +121,12 @@ $(document).ready(function(){
     </div>
     <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="dashboard.php">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+        <li class="active"><a href="dashboard.php">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
 			<ul class="dropdown-menu forAnimate" role="menu">
 				<li><a href="addUser.php">Add User</a></li>
-				<li class="active"><a href="manageUsers.php">Manage Users</a></li>
+				<li><a href="manageUsers.php">Manage Users</a></li>
       <!-- 
             <li class="divider"></li>
             <li><a href="#"></a></li>
@@ -166,7 +166,9 @@ $(document).ready(function(){
 <div class="container">
 
 <div class="row">
-   
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		
+	</div>
 </div>
 </div>
 </body>

@@ -14,11 +14,11 @@
 	   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+   <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
 
    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Add Product</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -64,7 +64,7 @@ $(document).ready(function(){
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-			<a href='index.php'></a>
+			<li><a href='index.php'><img src="images/logo.jpg"></a></li>
       </button>
       
     </div>
@@ -121,43 +121,31 @@ $(document).ready(function(){
     </div>
     <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+        <li><a href="dashboard.php">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
         <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Users<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
-			<ul class="dropdown-menu forAnimate" role="menu">
-				<li><a href="{{URL::to('createusuario')}}">Create User</a></li>
-				<li><a href="#">View Users</a></li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+          <ul class="dropdown-menu forAnimate" role="menu">
+            <li><a href="addUser.php">Add User</a></li>
+            <li><a href="manageUsers.php">Manage Users</a></li>
       <!-- 
             <li class="divider"></li>
             <li><a href="#"></a></li>
             <li class="divider"></li>
             <li><a href="#">Informes</a></li> -->
-			</ul>
+          </ul>
         </li>       
-		<li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Companies<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a>
-			<ul class="dropdown-menu forAnimate" role="menu">
-				<li><a href="{{URL::to('createusuario')}}">Add New Company</a></li>
-				<li><a href="#">Registered Companies</a></li>
+ <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a>
+          <ul class="dropdown-menu forAnimate" role="menu">
+            <li class="active"><a href="addProduct.php">Add Product</a></li>
+            <li><a href="manageProducts.php">Manage Products</a></li>
       
             
-			</ul>
+          </ul>
         </li>       		
-        <li ><a href="#">Manage Exhibitions<span style="font-size:16px;" class="pull-right hidden-xs showopacity "></span></a></li>        
-		<li ><a href="#">Manage Accessibility</a></li>  
-		<li ><a href="#">Manage Roles</a></li>		
-		<li ><a href="#">Manage Categories</a></li>   		
-		<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Management<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cloud"></span></a>
-			<ul class="dropdown-menu forAnimate" role="menu">
-				<li><a href="#">Generate Reports</a></li>
-				<li><a href="#">Site Stats</a></li>
-				<li><a href="#">Data Import Wizard</a></li>
-			    <li><a href="#">Data Export</a></li>
-      
-            
-			</ul>
-		</li>  
+        <li ><a href="#">Exhibitions<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>        
+		<li ><a href="companyProfile.php">Company Profile</a></li>        
+     
       </ul>
     </div>
   </div>
@@ -170,7 +158,7 @@ $(document).ready(function(){
 		
 	</div>
 </div>
-</div>
+
 </body>
 
 </html>
