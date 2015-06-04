@@ -1,3 +1,11 @@
+<?php 
+    session_start();
+    $role =  $_SESSION['sess_userrole'];
+    if(!isset( $_SESSION['sess_username']) || $role!="companyPOC"){
+
+		echo 'Not Authorized to View this page';
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 

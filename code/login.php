@@ -52,7 +52,7 @@ $hashedpassword=md5($password);
 
 
 // A select query. $result will be a `mysqli_result` object if successful
-$queryhere='SELECT uemail FROM users WHERE uemail = '.$email.' AND upwd="'.$hashedpassword.'"';
+$queryhere='SELECT r.*,u.* FROM users u inner join userroles r on u.rid=r.rid WHERE u.uemail = '.$email.' AND u.upwd="'.$hashedpassword.'"';
 
 $result = db_query($queryhere);
 
@@ -69,9 +69,33 @@ else {
         $rows[] = $row;
     }
 	if (sizeof($rows) == 1) {
-	 header('Refresh:1; url=http://example.com/myOtherPage.php');//replace later
+		session_start();
+  $_SESSION['sess_user_id'] = $row['uid'];
+  $_SESSION['sess_username'] = $row['uname'];
+        $_SESSION['sess_userrole'] = $row['rolename'];
+
+        echo $_SESSION['sess_userrole'];
+
+
+  if( $_SESSION['sess_userrole'] == "superusers"){
+   header('Location: ../CMS/Admin/dashboard.php');
+  }elseif( $_SESSION['sess_userrole'] == "companyPOC")
+  {
+   header('Location: ../CMS/Poc/dashboard.php');
+  }
+  elseif($_SESSION['sess_userrole'] == "companyExecutive")
+  {
+	    header('Location: ../CMS/');
+  }
+  else{
+	  
+	 echo $_SESSION['sess_userrole'];
+	 		
+  }
 	 
-     echo 'Login Successful, Redirecting to the Dashboard';
+	 
+
+
     }
 	else {
 		header("Refresh:0");
