@@ -63,6 +63,7 @@ $(document).ready(function(){
         }
     );
 });
+
 </script>
 </head>
 
@@ -164,6 +165,51 @@ $(document).ready(function(){
     </div>
   </div>
 </nav>
+<?php
+     
+    require '../database.php';
+	 if(isset($_POST['add']))
+	{
+         
+        // keep track post values
+        $firstname = $_POST['first_name'];
+		$lastname = $_POST['last_name'];
+		$displayname = $_POST['display_name'];
+		
+        $email = $_POST['email'];
+		$password = $_POST['password'];
+		$hashedpassword=md5($password);
+        $contact = $_POST['contact'];
+		$rid = $_POST['role'];
+		 
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "INSERT INTO users (rid,uname,ufname,ulname,uemail,upwd,ucontact) values(?, ?, ?, ?, ?, ?, ?)";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($rid,$displayname,$firstname,$lastname,$email,$hashedpassword,$contact));
+			$newuid = $pdo->lastInsertId();
+			
+			$sql = "SELECT * FROM companies where primarypocuid = ?";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($uid));
+			$data = $q->fetch(PDO::FETCH_ASSOC);
+			$cid = $data['cid'];
+			if($cid==null)
+			{
+				$sql = "SELECT * FROM ciduidlist where uid = ?";
+				$q = $pdo->prepare($sql);
+				$q->execute(array($uid));
+				$data = $q->fetch(PDO::FETCH_ASSOC);
+				$cid = $data['cid'];
+			}
+			$sql = "INSERT INTO ciduidlist (cid,uid) values(?, ?)";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($cid,$newuid));
+			Database::disconnect();
+			echo "User Added! Hit refresh to continue adding <script>window.location='dashboard.php'</script>";
+    }
+	
+?>
 
 <div class="container">
 
@@ -217,6 +263,8 @@ $(document).ready(function(){
 			  </div>
 			</div>
 
+			
+			
 			<hr class="colorgraph">
 			<div class="row">
 				<div class="col-xs-12 col-md-6"><input name="add" type="submit" value="ADD" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>

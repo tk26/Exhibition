@@ -64,6 +64,17 @@ $(document).ready(function(){
         }
     );
 });
+
+function getState(val) {
+	$.ajax({
+	type: "POST",
+	url: "get_companies.php",
+	data:'id='+val, //for id=1 
+	success: function(data){
+		$("#company-list").html(data);
+	}
+	});
+}
 </script>
 </head>
 
@@ -193,37 +204,19 @@ $(document).ready(function(){
 		$hashedpassword=md5($password);
         $contact = $_POST['contact'];
 		$rid = $_POST['role'];
-		
+		$cid=$_POST['cid'];
          
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "INSERT INTO users (rid,uname,ufname,ulname,uemail,upwd,ucontact) values(?, ?, ?, ?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($rid,$displayname,$firstname,$lastname,$email,$hashedpassword,$contact));
-			if($rid==1)
-			{
-					$sql = "SELECT cid,cname from companies";
-					$q = $pdo->prepare($sql);
-					
-					foreach ($pdo->query($sql) as $row) {
-                            echo '<tr>';
-                            echo '<td>'. $row['ufname'] . '</td>';
-							echo '<td>'. $row['ulname'] . '</td>';
-							echo '<td>'. $row['uname'] . '</td>';
-							echo '<td>'. $row['uemail'] . '</td>';
-                            echo '<td>'. $row['ucontact'] . '</td>';
-							
-							echo '<td width=250>';
-                                echo '<a class="btn btn-success" href="updateUser.php?id='.$row['uid'].'">Update</a>';
-                                echo ' ';
-                                echo '<a class="btn btn-danger" href="deleteUser.php?id='.$row['uid'].'">Delete</a>';
-                                echo '</td>';
-
-                            echo '</tr>';
-                   }
-			}
-            Database::disconnect();
-			echo "User Added! Hit refresh to continue adding<script>window.location='dashboard.php'</script>";
+			$newuid = $pdo->lastInsertId();
+			$sql = "INSERT INTO ciduidlist (cid,uid) values(?, ?)";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($cid,$newuid));
+			Database::disconnect();
+			echo "User Added! Hit refresh to continue adding <script>window.location='dashboard.php'</script>";
     }
 	
 ?>
@@ -273,13 +266,17 @@ $(document).ready(function(){
 			<div class="control-group">
 			  <label class="control-label" for="role">Select Role</label>
 			  <div class="controls">
-				<select id="role" name="role" class="input-xxlarge">
+				<select id="role" name="role" class="input-xxlarge" onChange="getState(this.value);">
 				  <option value="1">Company POC</option>
 				  <option value="2">Company Executive</option>
 				  <option value="3">End User</option>
 				  <option value="4">Super User</option>
 				</select>
 			  </div>
+			</div>
+			
+			<div class="control-group" id="company-list">
+			  
 			</div>
 			
 			
