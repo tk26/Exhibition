@@ -1,10 +1,13 @@
-<?php 
-    session_start();
-    $role =  $_SESSION['sess_userrole'];
-    if(!isset( $_SESSION['sess_username']) || $role!="superusers"){
-
-		echo 'Not Authorized to View this page';
-    }
+<?php
+require '../session1.php';
+//echo $role;
+//echo $uid;
+//echo $username;
+if($role!=4)
+	{
+		echo "<script>window.location='../login.php'</script>";
+	}
+		    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,11 +95,11 @@ $(document).ready(function(){
         </form> -->
         <ul class="nav navbar-nav navbar-right">
            
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">UserName <span class="caret"></span></a>
+           <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?><span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">My Profile</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="../logout.php">Logout</a></li>
              
                 <li class="divider"></li>
                 <li><a href="#">Separated link</a></li>
@@ -174,6 +177,56 @@ $(document).ready(function(){
     </div>
   </div>
 </nav>
+<?php
+     
+    require '../database.php';
+	 if(isset($_POST['add']))
+	{
+         
+        // keep track post values
+        $firstname = $_POST['first_name'];
+		$lastname = $_POST['last_name'];
+		$displayname = $_POST['display_name'];
+		
+        $email = $_POST['email'];
+		$password = $_POST['password'];
+		$hashedpassword=md5($password);
+        $contact = $_POST['contact'];
+		$rid = $_POST['role'];
+		
+         
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "INSERT INTO users (rid,uname,ufname,ulname,uemail,upwd,ucontact) values(?, ?, ?, ?, ?, ?, ?)";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($rid,$displayname,$firstname,$lastname,$email,$hashedpassword,$contact));
+			if($rid==1)
+			{
+					$sql = "SELECT cid,cname from companies";
+					$q = $pdo->prepare($sql);
+					
+					foreach ($pdo->query($sql) as $row) {
+                            echo '<tr>';
+                            echo '<td>'. $row['ufname'] . '</td>';
+							echo '<td>'. $row['ulname'] . '</td>';
+							echo '<td>'. $row['uname'] . '</td>';
+							echo '<td>'. $row['uemail'] . '</td>';
+                            echo '<td>'. $row['ucontact'] . '</td>';
+							
+							echo '<td width=250>';
+                                echo '<a class="btn btn-success" href="updateUser.php?id='.$row['uid'].'">Update</a>';
+                                echo ' ';
+                                echo '<a class="btn btn-danger" href="deleteUser.php?id='.$row['uid'].'">Delete</a>';
+                                echo '</td>';
+
+                            echo '</tr>';
+                   }
+			}
+            Database::disconnect();
+			echo "User Added! Hit refresh to continue adding<script>window.location='dashboard.php'</script>";
+    }
+	
+?>
 
 <div class="container">
 
@@ -228,6 +281,8 @@ $(document).ready(function(){
 				</select>
 			  </div>
 			</div>
+			
+			
 
 			<hr class="colorgraph">
 			<div class="row">

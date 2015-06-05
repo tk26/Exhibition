@@ -1,10 +1,13 @@
-<?php 
-    session_start();
-    $role =  $_SESSION['sess_userrole'];
-    if(!isset( $_SESSION['sess_username']) || $role!="superusers"){
-
-		echo 'Not Authorized to View this page';
-    }
+<?php
+require '../session1.php';
+//echo $role;
+//echo $uid;
+//echo $username;
+if($role!=4)
+	{
+		echo "<script>window.location='../login.php'</script>";
+	}
+		    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,10 +93,10 @@ $(document).ready(function(){
         <ul class="nav navbar-nav navbar-right">
            
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">UserName <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?><span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">My Profile</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="../logout.php">Logout</a></li>
              
                 <li class="divider"></li>
                 <li><a href="#">Separated link</a></li>
@@ -171,12 +174,41 @@ $(document).ready(function(){
     </div>
   </div>
 </nav>
+<?php
+     
+    require '../database.php';
+	 if(isset($_POST['add']))
+	{
+         
+        // keep track post values
+        $firstname = $_POST['first_name'];
+		$lastname = $_POST['last_name'];
+		$displayname = $_POST['display_name'];
+		
+        $email = $_POST['email'];
+		$password = $_POST['password'];
+		$hashedpassword=md5($password);
+        $contact = $_POST['contact'];
+		$sid = $_POST['sid'];
+		
+         $cname = $_POST['cname'];
+		$cabout = $_POST['cabout'];
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "CALL addCompany(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($sid,$cname,$cabout,$displayname,$firstname,$lastname,$email,$hashedpassword,$contact));
+            Database::disconnect();
+			echo "Company Added <script>window.location='dashboard.php'</script>";
+    }
+	
+?>
 
 <div class="container">
 
 <div class="row">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-		<form class="form-horizontal">
+		<form class="form-horizontal" action="<?php $_PHP_SELF ?>" method="post" onsubmit="return myFunction()">
 				<fieldset>
 
 				<!-- Form Name -->
@@ -195,17 +227,17 @@ $(document).ready(function(){
 				<div class="col-xs-12 col-sm-6 col-md-6">
 				<div class="form-group">
 					<select id="sid" name="sid" class="form-control input-large" placeholder="Choose Sub-Domain">
-					  <option>subdomain1</option>
-					  <option>subdomain2</option>
-					  <option>subdomain3</option>
-					  <option>subdomain4</option>
+					  <option value="1">subdomain1</option>
+					  <option value="2">subdomain2</option>
+					  <option value="3">subdomain3</option>
+					  <option value="4">subdomain4</option>
 					</select>
 				  </div>
 				</div>
 				</div>
 
-				<!-- File Button --> 
-				<div class="row">
+				<!-- File Button --> <!--lets keep logo for later stuff, after folder creations is established-->
+				<!--<div class="row">
 				  <label class="label label-primary" for="cabout">Company Logo</label>
 				  <div class="col-xs-12 col-sm-6 col-md-6">  
 				  <div class="form-group">
@@ -213,7 +245,8 @@ $(document).ready(function(){
 				  </div>
 				  </div>
 				</div>
-
+				-->
+				
 				<!-- Textarea -->
 				<div class="row">
 				  <label class="label label-info" for="cabout">About The Company</label>

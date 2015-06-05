@@ -1,12 +1,14 @@
-<?php 
-    session_start();
-    $role =  $_SESSION['sess_userrole'];
-    if(!isset( $_SESSION['sess_username']) || $role!="companyPOC"){
+<?php
+require '../session1.php';
+//echo $role;
+//echo $uid;
+//echo $username;
+if($role!=1)
+	{
+		echo "<script>window.location='../login.php'</script>";
+	}
 
-		echo 'Not Authorized to View this page';
-    }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,10 +95,10 @@ $(document).ready(function(){
         <ul class="nav navbar-nav navbar-right">
            
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">UserName <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?><span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">My Profile</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="../logout.php">Logout</a></li>
              
                 <li class="divider"></li>
                 <li><a href="#">Separated link</a></li>
