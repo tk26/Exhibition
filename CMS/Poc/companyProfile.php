@@ -167,10 +167,10 @@ function edit(element) {
 	{
 	
 		  var parent=$(element).parent().parent();
-    var placeholder=$(parent).find('#lblyear').text();
+    var placeholder=$(parent).find('#lblYear').text();
 	
     //hide label
-    $(parent).find('#lblyear').hide();
+    $(parent).find('#lblYear').hide();
     //show input, set placeholder
     var input=$(parent).find("input[class*='input-year']");
 	
@@ -332,7 +332,8 @@ $username; ?><span class="caret"></span></a>
         <a href="#" id="btnsite" onclick="edit(this);" class="label label-info">Edit Website Url</a>
     </div>                           
 						   <br />
-                            June 06, 2015
+                           <small id="lblYear">June 06, 2015</small>
+                         
                         <!-- Split button -->
                       <input type="text" class="input-year" style="display:none;">
 							<div class="controls">
