@@ -27,6 +27,20 @@ if($role!=4)
         $sql = "DELETE FROM users  WHERE uid = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($id));
+		
+		    $sql = "SELECT count(*) FROM companies where primarypocuid = ?";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($id));
+			$count=$q->fetchColumn(); 
+			
+			if($count==1)
+			{
+				$sql = "UPDATE companies  set primarypocuid='', primarypocpwd='', primarypocfname ='' ,primarypoclname = '', primarypocuname = '', primarypocemail = '', primarypoccontact ='' WHERE primarypocuid = ?";
+				$q = $pdo->prepare($sql);
+				$q->execute(array($id));
+			}
+            
+		
         Database::disconnect();
         header("Location: dashboard.php");
          

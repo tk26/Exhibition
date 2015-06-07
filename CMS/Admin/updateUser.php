@@ -72,7 +72,20 @@ if($role!=4)
             $sql = "UPDATE users  set ufname = ?,ulname = ?, uname = ?, uemail = ?, ucontact =? WHERE uid = ?";
             $q = $pdo->prepare($sql);
             $q->execute(array($fname,$lname,$dname,$email,$contact,$id));
-            Database::disconnect();
+			
+			$sql = "SELECT count(*) FROM companies where primarypocuid = ?";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($id));
+			$count=$q->fetchColumn(); 
+			
+			if($count==1)
+			{
+				$sql = "UPDATE companies  set primarypocfname = ?,primarypoclname = ?, primarypocuname = ?, primarypocemail = ?, primarypoccontact =? WHERE primarypocuid = ?";
+				$q = $pdo->prepare($sql);
+				$q->execute(array($fname,$lname,$dname,$email,$contact,$id));
+			}
+            
+			Database::disconnect();
             header("Location: dashboard.php");
         }
     } else {
