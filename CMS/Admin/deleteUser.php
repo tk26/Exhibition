@@ -7,7 +7,7 @@ if($role!=4)
 	{
 		echo "<script>window.location='../login.php'</script>";
 	}
-		    
+	 	    
 ?>
 <?php
     require '../database.php';
