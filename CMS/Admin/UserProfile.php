@@ -184,7 +184,7 @@ $(document).ready(function(){
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>User Details</h3>
+                        <CENTER><h3>User Details</h3></CENTER>
                     </div>
              
                     <form class="form-horizontal" action="updateUser.php?id=<?php echo $id?>" method="post">
@@ -215,15 +215,7 @@ $(document).ready(function(){
                             <?php endif; ?>
                         </div>
                       </div>
-                      <div class="form-group" <?php echo !empty($emailError)?'error':'';?>">
-                        <label class="control-label col-sm-2">Email</label>
-                   <div class="col-sm-10">
-                            <input name="email" class="form-control" type="text" placeholder="Email Address" value="<?php echo !empty($email)?$email:'';?>">
-                            <?php if (!empty($emailError)): ?>
-                                <span class="help-inline"><?php echo $emailError;?></span>
-                            <?php endif;?>
-                        </div>
-                      </div>
+                      
                       <div class="form-group" <?php echo !empty($contactError)?'error':'';?>">
                          <label class="control-label col-sm-2">Contact</label>
                        <div class="col-sm-10">
@@ -233,6 +225,34 @@ $(document).ready(function(){
                             <?php endif;?>
                         </div>
                       </div>
+                      <div class="form-group" <?php echo !empty($emailError)?'error':'';?>">
+                        <label class="control-label col-sm-2">Email</label>
+                   <div class="col-sm-10">
+                            <input name="email" class="form-control" type="text" placeholder="Email Address" disabled="true" value="<?php echo !empty($email)?$email:'';?>">
+                            <?php if (!empty($emailError)): ?>
+                                <span class="help-inline"><?php echo $emailError;?></span>
+                            <?php endif;?>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                      <label class="control-label col-sm-2">Company</label>
+                       <div class="col-sm-10">
+                            <input name="company" type="text" class="form-control"  placeholder="Company Name" disabled="true" value="<?php echo !empty($contact)?$contact:'';?>">
+                            <?php if (!empty($contactError)): ?>
+                                <span class="help-inline"><?php echo $contactError;?></span>
+                            <?php endif;?>
+                        </div>
+                        </div>
+                        
+                         <div class="form-group">
+                      <label class="control-label col-sm-2">Role</label>
+                       <div class="col-sm-10">
+                            <input name="role" type="text" class="form-control"  placeholder="User Role" disabled="true" value="<?php echo !empty($role)?$role:'';?>">
+                            <?php if (!empty($roleError)): ?>
+                                <span class="help-inline"><?php echo $roleError;?></span>
+                            <?php endif;?>
+                        </div>
+                        </div>
                         <div class="col-sm-offset-2 col-sm-10">
                           <button type="submit" class="btn btn-success">Update</button>
                          
