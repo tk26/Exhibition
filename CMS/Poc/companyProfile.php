@@ -3,10 +3,9 @@ require '../session1.php';
 //echo $role;
 //echo $uid;
 //echo $username;
-if($role!=1)
-	{
-		echo "<script>window.location='../login.php'</script>";
-	}
+if ($role != 1) {
+    echo "<script>window.location='../login.php'</script>";
+}
 
 ?>
 <!DOCTYPE html>
@@ -57,6 +56,16 @@ color: #999;
 }
 
 .control-label .text-info { display:inline-block; }
+
+
+#dvPreview
+{
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+    min-height: 400px;
+    min-width: 400px;
+    display: none;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -73,7 +82,30 @@ $(document).ready(function(){
             $(this).toggleClass('open');       
         }
     );
+    
+      
+
+    $(btnYear).hide();
+       $(btncompanyname).hide();
+       $(btnlocation).hide();
+       $(btnemail).hide();
+          $(btnsite).hide();
+       
 });
+
+function show()
+{
+    $(btnYear).show();
+       $(btncompanyname).show();
+       $(btnlocation).show();
+       $(btnemail).show();
+          $(btnsite).show();
+        document.getElementById("sid").disabled=false;
+      document.getElementById("did").disabled=false;
+       document.getElementById("cabout").disabled=false;
+      
+}
+
 
 function edit(element) {
 	if(element.id=='btncompanyname')
@@ -121,24 +153,24 @@ function edit(element) {
 	{
 	
 		  var parent=$(element).parent().parent();
-    var placeholder=$(parent).find('#lblwebsite').text();
+          var placeholder=$(parent).find('#lblwebsite').text();
 	
     //hide label
-    $(parent).find('#lblYear').hide();
+    $(parent).find('#lblwebsite').hide();
     //show input, set placeholder
-    var input=$(parent).find("input[class*='input-year']");
+    var input=$(parent).find("input[class*='input-site']");
 	
     $(input).show();
     $(input).attr('placeholder', placeholder);
 	} 
-	else if(element.id=='btnyear')
+	else if(element.id=='btnYear')
 	{
 	
 		  var parent=$(element).parent().parent();
     var placeholder=$(parent).find('#lblyear').text();
 	
     //hide label
-    $(parent).find('#lbldate').hide();
+    $(parent).find('#lblyear').hide();
     //show input, set placeholder
     var input=$(parent).find("input[class*='input-year']");
 	
@@ -152,7 +184,7 @@ function edit(element) {
 <body>
 
 
-
+  
 
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">
@@ -182,7 +214,8 @@ function edit(element) {
         <ul class="nav navbar-nav navbar-right">
            
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?><span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo
+$username; ?><span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">My Profile</a></li>
                 <li><a href="../logout.php">Logout</a></li>
@@ -266,7 +299,7 @@ function edit(element) {
 				
 				<div class="row">
 				<div class="jumbotron" > 
-					<button id="edit" onclick="edit(this);" class="btn btn-primary pull-right btn-sm RbtnMargin" type="button">Edit Company Profile</button>
+					<button id="edit" onclick="show();" class="btn btn-primary pull-right btn-sm RbtnMargin" type="button">Edit Company Profile</button>
 				 <div class="well well-sm">
                 <div class="row">
 			
@@ -278,32 +311,32 @@ function edit(element) {
                         <p class="company-info">Virtual Exhibition</p></h3>
 						<input type="text" class="input-company" style="display:none;">
 						<div class="controls">
-        <a href="#" id="btncompanyname" onclick="edit(this);">Edit Name</a>
-    </div>
+        <a href="#" id="btncompanyname" onclick="edit(this);" class="label label-info">Edit Name</a>
+    </div><br/>
                         <small id="lblLocation">Mumbai, India <i class="glyphicon glyphicon-map-marker">
                         </i></small>
 								<input type="text" class="input-location" style="display:none;">
 						<div class="controls">
-        <a href="#" id="btnlocation" onclick="edit(this);">Edit Location</a>
-    </div>
+        <a href="#" id="btnlocation" onclick="edit(this);" class="label label-info">Edit Location</a>
+    </div><br />
                         
-                            <i id="lblemail" class="glyphicon glyphicon-envelope">email@example.com</i>	
+                            <i id="lblemail" class="glyphicon glyphicon-envelope"> email@example.com</i>	
 							<input type="text" class="input-email" style="display:none;">
 							<div class="controls">
-        <a href="#" id="btnemail" onclick="edit(this);">Edit Email</a>
+        <a href="#" id="btnemail" onclick="edit(this);" class="label label-info">Edit Email</a>
     </div>
                             <br />
                             <i class="glyphicon glyphicon-globe"></i><a id="lblwebsite" href="#">www.Virtualexhibtion.com</a>
 	<input type="text" class="input-site" style="display:none;">
 							<div class="controls">
-        <a href="#" id="btnsite" onclick="edit(this);">Edit Website Url</a>
+        <a href="#" id="btnsite" onclick="edit(this);" class="label label-info">Edit Website Url</a>
     </div>                           
 						   <br />
-                            <i class="glyphicon glyphicon-gift" id="lblyear">June 06, 2015	</i>
+                            June 06, 2015
                         <!-- Split button -->
                       <input type="text" class="input-year" style="display:none;">
 							<div class="controls">
-        <a href="#" id="btnYear" onclick="edit(this);">Edit Year Established</a>
+        <a href="#" id="btnYear" onclick="edit(this);" class="label label-info">Edit Year Established</a>
     </div>   
                     </div>
                 </div>
@@ -316,9 +349,9 @@ function edit(element) {
 				</div>
 				</div>
 				 <div class="form-group">
-      <label for="firstname" class="col-sm-2 control-label">Domain</label>
+      <label for="domain" class="col-sm-2 control-label">Domain</label>
       <div class="col-sm-10">
-     <select id="sid" name="sid" class="form-control input-large" placeholder="Choose Domain">
+     <select id="did" name="did" class="form-control input-large" placeholder="Choose Domain" disabled="true">
 					  <option value="1">domain1</option>
 					  <option value="2">domain2</option>
 					  <option value="3">domain3</option>
@@ -327,9 +360,9 @@ function edit(element) {
       </div>
    </div>
    <div class="form-group">
-      <label for="lastname" class="col-sm-2 control-label">Sub-Domain</label>
+      <label for="subdomain" class="col-sm-2 control-label">Sub-Domain</label>
       <div class="col-sm-10">
-        <select id="sid" name="sid" class="form-control input-large" placeholder="Choose Sub-Domain">
+        <select id="sid" name="sid" class="form-control input-large" placeholder="Choose Sub-Domain" disabled="true">
 					  <option value="1">subdomain1</option>
 					  <option value="2">subdomain2</option>
 					  <option value="3">subdomain3</option>
@@ -343,7 +376,7 @@ function edit(element) {
        <label class="label label-info" for="cabout">About The Company</label>
 				 
 				
-					<textarea id="cabout" name="cabout" class="form-control input-lg" tabindex="1" required></textarea>
+					<textarea id="cabout" style="overflow:auto;resize:none" rows="13" cols="20" name="cabout" class="form-control input-lg" tabindex="1" required disabled="true"></textarea>
 			
 				
       </div>
@@ -394,15 +427,17 @@ function edit(element) {
    
 				</fieldset>
 				
-			
 		
-				</form>
+		
+				</form>	 
 				<hr class="colorgraph">
+                
 	</div>
 	
 </div>
 </div>
 
 </body>
+
 
 </html>
