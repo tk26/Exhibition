@@ -83,7 +83,7 @@ $(document).ready(function(){
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?><span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">My Profile</a></li>
+                <li><a href="userProfile.php">My Profile</a></li>
                 <li><a href="../logout.php">Logout</a></li>
              
                 <li class="divider"></li>

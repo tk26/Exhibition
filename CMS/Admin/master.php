@@ -85,7 +85,7 @@ $(document).ready(function(){
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$username.'<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
 			 <!-- <?php echo $_SESSION["uid"]?>-->
-                <li><a href="UserProfile.php?id=15">My Profile</a></li>
+                <li><a href="userProfile.php">My Profile</a></li>
                 <li><a href="../logout.php">Logout</a></li>
              
                 <li class="divider"></li>
