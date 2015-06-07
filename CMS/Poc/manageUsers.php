@@ -168,7 +168,26 @@ $(document).ready(function(){
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 ">
 	       
-                <h3>Users List</h3>
+                
+                  <?php
+                   include '../database.php';
+				   $cid=0;
+				   //$cid=1;
+                   $pdo = Database::connect();
+				   $sql = "SELECT cid FROM companies where primarypocuid = ?";
+				   $q = $pdo->prepare($sql);
+				   $q->execute(array($uid));
+                   $data = $q->fetch(PDO::FETCH_ASSOC);
+                   $cid = $data['cid'];
+				   if($cid==0)
+				   {
+					   
+					   echo "<h1> You can manage users only when you are a primary POC of a Company </h1>";
+				      
+				   }
+				   else
+                   {
+					   echo '<h3>Users List</h3>
                 
                 <table class="table table-striped table-bordered">
                   <thead>
@@ -181,18 +200,8 @@ $(document).ready(function(){
 					  <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                  <?php
-                   include '../database.php';
-				   
-				   //$cid=1;
-                   $pdo = Database::connect();
-				   $sql = "SELECT cid FROM ciduidlist where uid = ?";
-				   $q = $pdo->prepare($sql);
-				   $q->execute(array($uid));
-                   $data = $q->fetch(PDO::FETCH_ASSOC);
-                   $cid = $data['cid'];
-                   $sql = 'SELECT * FROM users inner join ciduidlist where users.uid = ciduidlist.uid AND cid=?';
+                  <tbody>';
+				   $sql = 'SELECT * FROM users inner join ciduidlist where users.uid = ciduidlist.uid AND cid=?';
 				   $q = $pdo->prepare($sql);
 				   $q->execute(array($cid));
                    foreach ($q->fetchAll() as $row) {
@@ -211,6 +220,8 @@ $(document).ready(function(){
 
                             echo '</tr>';
                    }
+				   }
+				   
                    Database::disconnect();
                   ?>
                   </tbody>
