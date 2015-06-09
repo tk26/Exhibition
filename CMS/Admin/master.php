@@ -130,8 +130,17 @@ $(document).ready(function(){
       
             
 			</ul>
-        </li>       		
-        <li ><a href="#">Exhibitions<span style="font-size:16px;" class="pull-right hidden-xs showopacity "></span></a></li>        
+        </li>       
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Exhibitions<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a>
+			<ul class="dropdown-menu forAnimate" role="menu">
+				<li><a href="createExhibition.php">Create Exhibtion</a></li>
+				<li><a href="#">Manage Exhibitions</a></li>
+      
+            
+			</ul>
+        </li>  		
+                
 		<li ><a href="#">Access Controls</a></li>  
 		<li ><a href="#">Roles</a></li>		
 		<li ><a href="#">Categories</a></li>   		

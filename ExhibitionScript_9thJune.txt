@@ -1,0 +1,18 @@
+create table exhibtions(
+     eid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     ename varchar(100) NOT NULL,
+    domainid int null,
+    sid int null,
+    startDate DATE NOT NULL,
+    endDate DATE NOT NULL
+    
+    )
+
+
+Create table eid_cid_pid
+(
+    eid int not null,
+    cid int null,
+    pid int null
+  
+    )
