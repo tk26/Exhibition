@@ -10,6 +10,36 @@ if($role!=1)
 require 'master.php';	
 ?>
 <title> Add Product </title>
+<?php
+     
+    require '../database.php';
+	 if(isset($_POST['add']))
+	{
+         
+        // keep track post values
+        $pname = $_POST['pname'];
+		$pdesc = $_POST['pabout'];
+		$pcode = $_POST['product_code'];
+		
+        $cid = 1;
+		$tagname = $_POST['tagname'];
+		
+        $tagvalue = $_POST['tagvalue'];
+		$docname = null;
+		
+         $docvalue = null;
+		$vidname = null;
+        $vidvalue= null;
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "CALL addProduct(?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($pname,$pdesc,$pcode,$cid,$tagname,$tagvalue,$docname,$docvalue,$vidname,$vidvalue));
+            Database::disconnect();
+			echo "product Added <script>window.location='dashboard.php'</script>";
+    }
+	
+?>
 <div class="container">
 
 <div class="row">
@@ -46,7 +76,7 @@ require 'master.php';
 				<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 				<div class="form-group">
-					<select id="sid" name="sid" class="form-control input-large" placeholder="Choose Company" disabled="true">
+					<select id="cid" name="cid" class="form-control input-large" placeholder="Choose Company" disabled="true">
 					  <option value="1">Company1</option>
 					  <option value="2">Company2</option>
 					  <option value="3">Company3</option>

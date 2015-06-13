@@ -1,4 +1,4 @@
-[<?php
+<?php
 require '../session1.php';
 //echo $role;
 //echo $uid;
@@ -10,6 +10,31 @@ if($role!=4)
 	require 'master.php';		    
 ?>
 <title> Create Exhibition </title>
+<?php
+     
+    require '../database.php';
+	 if(isset($_POST['add']))
+	{
+         
+        // keep track post values
+        $ename = $_POST['ename'];
+		$eabout = $_POST['eabout'];
+		$did = $_POST['did'];
+		
+        $sid = $_POST['sid'];
+        $start_date=$_POST['start_date'];
+        $end_date=$_POST['end_date'];
+	
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "CALL createExhibition(?, ?, ?, ?, ?, ?)";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($ename,$eabout,$did,$sid,$start_date,$end_date));
+            Database::disconnect();
+			echo "Exhibition Created<script>window.location='dashboard.php'</script>";
+    }
+	
+?>
 <div class="container">
 
 <div class="row">
@@ -60,28 +85,28 @@ if($role!=4)
                 <div class="panel panel-default">
   <div class="panel-heading">Select Participating Companies</div>
   <div class="panel-body">
-    Panel content
+  
  
-				<?php
+			<?php
+           
+              $pdo = Database::connect();
+               $sql = "SELECT DISTINCT cname FROM companies";
                 
-                //please add code below to add companies to checkbox list
+				   $q = $pdo->prepare($sql);
+                    $q->execute();   
+     $n = 0;
 
-    $students = $_SESSION['students'];
-
-    echo "Here is the list of students whose schedules are saved:<br/><br/>";
-
-    echo "<form action='checkbox-form.php' method='post'>
-    Load student?<br/>";
-
-    foreach ($students as $stud) {
-
-        echo "<br/><input type='checkbox' name=" . $stud . " value='load' />";
-    }
-
-    echo "<br/><br/><input type='submit' name='formSubmit' value='Submit' />
-   ";
-
-?>
+   foreach ($q->fetchAll() as $row)
+{ 
+    print "<tr><td>" . PHP_EOL;
+    printf('<input type="checkbox" name="section_%2$d" id="section_%2$d" value="%1$s" />
+         <label for="section_%2$d">%1$s</label>' . PHP_EOL,
+          htmlentities($row['cname'], ENT_QUOTES), $n++
+          
+        
+    );
+    print "</td></tr>" . PHP_EOL;
+} ?>
  	  </div>
 				</div>
 				</div>
